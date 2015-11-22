@@ -43,4 +43,4 @@ Optional
 [ ] Implement the restaurant detail page.
 
 Walkthrough
-
+![](Walkthrough/Yelp-Guide.gif)
