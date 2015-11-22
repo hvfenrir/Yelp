@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--Businesses View Controller-->
+        <!--Yelp-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -135,7 +135,7 @@
                             <constraint firstAttribute="trailing" secondItem="UCh-hh-feY" secondAttribute="trailing" id="ozG-D7-cYb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="3DH-L0-ktd">
+                    <navigationItem key="navigationItem" title="Yelp" id="3DH-L0-ktd">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="ZE0-P8-x0c">
                             <connections>
                                 <segue destination="6FY-vw-9C0" kind="modal" id="Kae-JX-jqA"/>
