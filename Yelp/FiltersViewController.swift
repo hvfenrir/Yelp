@@ -12,8 +12,9 @@ import UIKit
 }
 
 
-class FiltersViewController: UIViewController, UITableViewDataSource,UITableViewDelegate, SwitchCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource,UITableViewDelegate, SwitchCellDelegate ,UISearchBarDelegate{
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     let data = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
         "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
@@ -21,13 +22,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource,UITableView
         "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
         "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
     var switchStates = [Int:Bool]()
+    var filteredData: [String]!
+    
     
     weak var delegate: FiltersViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-    
+        searchBar.delegate = self
+        filteredData = data
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
@@ -36,23 +40,27 @@ class FiltersViewController: UIViewController, UITableViewDataSource,UITableView
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-            return data.count
+            return filteredData.count
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-        cell.switchLabel.text = data[indexPath.row]
-        cell.delegate = self
-//        if switchStates[indexPath.row] != nil{
-//            cell.onSwitch.on = switchStates[indexPath.row]!
-//        }else{
-//            cell.onSwitch.on = false
-//        }
-        
-        cell.onSwitch.on = switchStates[indexPath.row] ?? false
-        
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell") as! SwitchCell
+        cell.textLabel?.text = filteredData[indexPath.row]
         return cell
     }
+//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+//        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+//        cell.switchLabel.text = data[indexPath.row]
+//        cell.delegate = self
+////        if switchStates[indexPath.row] != nil{
+////            cell.onSwitch.on = switchStates[indexPath.row]!
+////        }else{
+////            cell.onSwitch.on = false
+////        }
+//        
+//        cell.onSwitch.on = switchStates[indexPath.row] ?? false
+//        
+//        return cell
+//    }
 
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)
@@ -78,5 +86,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource,UITableView
         }
         delegate?.filtersViewController?(self, didUpdatefilters: filters)
     }
-    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -> Bool in
+            return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+        })
+        
+        tableView.reloadData()
+    }    
 }

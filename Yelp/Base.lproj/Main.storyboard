@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--Yelp-->
+        <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -135,7 +135,7 @@
                             <constraint firstAttribute="trailing" secondItem="UCh-hh-feY" secondAttribute="trailing" id="ozG-D7-cYb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="3DH-L0-ktd">
+                    <navigationItem key="navigationItem" id="3DH-L0-ktd">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="ZE0-P8-x0c">
                             <connections>
                                 <segue destination="6FY-vw-9C0" kind="modal" id="Kae-JX-jqA"/>
@@ -166,9 +166,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="YoE-Bo-yxF">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <animations/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="84" id="CdP-yK-E0Z" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="136" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CdP-yK-E0Z" id="ge4-wp-qRv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="83.5"/>
@@ -229,10 +235,20 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="YoE-Bo-yxF" id="5Us-iB-sOe"/>
+                        <outlet property="searchDisplayController" destination="8R0-5d-ikc" id="7sK-ea-SXc"/>
                         <outlet property="tableView" destination="2xr-Z2-WEp" id="Y3M-Iw-kya"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKA-HS-6Yt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="8R0-5d-ikc">
+                    <connections>
+                        <outlet property="delegate" destination="VE0-ME-eYg" id="Drh-Gc-Ztf"/>
+                        <outlet property="searchContentsController" destination="VE0-ME-eYg" id="Xhy-4T-nr5"/>
+                        <outlet property="searchResultsDataSource" destination="VE0-ME-eYg" id="Qaz-DG-k1q"/>
+                        <outlet property="searchResultsDelegate" destination="VE0-ME-eYg" id="oRk-Ml-GG9"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2089" y="338"/>
         </scene>
